@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDom from 'react-dom'
 import faker from 'faker';
 import {say} from 'cowsay';
-import { think, SQUIRREL } from 'cowsay';
+import { think, SQUIRREL,GOAT,DOG,CAT,COW } from 'cowsay';
 import './style/app.scss';
 class Header extends React.Component{
     constructor(props){
@@ -36,20 +36,26 @@ class App extends React.Component{
        this.setState({content,selectedValue})
     }
     selectCow(event){
+        var animal;
        console.log(event.target.value)
          if(event.target.value === 'squirrel'){
+            animal = SQUIRREL;
+        }
+        else if(event.target.value === 'goat'){
+            animal = GOAT;
+        }
+        else{
+            this.cowsay(event);
+        }  
           let content = think({
             text: faker.hacker.phrase(),
-            cow: SQUIRREL,
+            cow: animal,
             eyes: 'pp',
             tongue: ';;',
           })
           let selectedValue = event.target.value;
           this.setState({content,selectedValue})
-        }
-        else{
-            this.cowsay(event);
-        }   
+         
     }
     render(){
         return (
@@ -58,6 +64,7 @@ class App extends React.Component{
                 <select value ={this.state.selectedValue} onChange ={this.selectCow}>
                   <option value = 'select' defaultValue>select a cow</option>
                   <option value = 'squirrel'>SQUIRREL</option>
+                  <option value = 'goat'>GOAT</option>
                   <option value = 'cow'>COW</option>
                 </select>
                 <p>{this.state.content}</p>
